@@ -55,6 +55,9 @@ router.get("/", async (req, res) => {
     const jobs = isAuthenticated
       ? await Job.find()
       : await Job.find().select("-_id -creator -about -information"); //if user is not authenticated, only retrieves the job name, logo, position, salary, jobType, remote, location, skills, description, about, information
+    // const canEdit = isAuthenticated
+    //   ? req.user.toString() === job.creator.toString()
+    //   : false; //checking if user is the creator of the job and if its is authenticated than user can edit the job
     res.status(200).json({
       msg: "Jobs retrieved successfully",
       jobs,
